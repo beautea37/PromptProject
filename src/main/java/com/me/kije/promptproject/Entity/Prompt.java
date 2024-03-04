@@ -20,7 +20,7 @@ public class Prompt {
     @Column(nullable = false/*, length = 10000*/)
     private String title;
 
-    @Column(nullable = false/*, length = 10000*/)
+    @Column(nullable = false, length = 10000)
     private String content;
 
     private LocalDateTime createdAt;
