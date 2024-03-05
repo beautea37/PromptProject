@@ -14,7 +14,6 @@ public class Comment {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "prompt_id")
     private Prompt prompt;
 
     @ManyToOne

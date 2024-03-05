@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Prompt</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Create New Prompt</h2>
+    <form id="promptForm">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="subTitle">SubTitle</label>
+            <input type="text" class="form-control" id="subTitle" name="subTitle">
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // jQuery to handle form submission
+    $('#promptForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var formData = {
+            title: $('#title').val(),
+            subTitle: $('#subTitle').val(),
+            content: $('#content').val()
+        };
+
+        // AJAX call to POST data to the server
+        $.ajax({
+            url: '/save', // Your API endpoint for saving
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(response) {
+                console.log('Prompt saved', response);
+                // Handle success (e.g., redirecting, displaying a message, etc.)
+            },
+            error: function(error) {
+                console.error('Error saving prompt', error);
+                // Handle error
+            }
+        });
+    });
+</script>
+</body>
+</html>

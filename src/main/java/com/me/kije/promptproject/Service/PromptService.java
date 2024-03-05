@@ -1,7 +1,9 @@
 package com.me.kije.promptproject.Service;
 
 import com.me.kije.promptproject.Entity.Prompt;
+import com.me.kije.promptproject.dto.UpdatePromptRequest;
 import com.me.kije.promptproject.repository.PromptRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -14,36 +16,35 @@ import java.util.List;
 @Service
 public class PromptService {
 
-    @Autowired
     private final PromptRepository promptRepository;
 
-
-
     //글 저장
-    public Prompt createPrompt(Prompt prompt) {
+    public Prompt save(Prompt prompt) {
         return promptRepository.save(prompt);
     }
 
+    //글 조회
     public List<Prompt> getAllPrompts() {
         return promptRepository.findAll();
     }
 
+    //목록 조회
     public Prompt getPromptById(Long id) {
         return promptRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prompt not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Prompt 조회 불가 id 값 : " + id));
     }
 
-    public Prompt updatePrompt(Long id, Prompt promptDetails) {
-        Prompt prompt = getPromptById(id);
+    //수정 업데이트
+    @Transactional
+    public Prompt update(Long id, UpdatePromptRequest request) {
+        Prompt prompt = promptRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id값이 없습니다. id 값은 : " + id));
 
-        prompt.setTitle(promptDetails.getTitle());
-        prompt.setContent(promptDetails.getContent());
-        // 여기서 필요한 다른 필드들을 업데이트
-
-        return promptRepository.save(prompt);
+        prompt.update(request.getTitle(), request.getSubTitle(), request.getContent());
+        return prompt;
     }
 
-    public void deletePrompt(Long id) {
+    public void delete(Long id) {
         Prompt prompt = getPromptById(id);
         promptRepository.delete(prompt);
     }
