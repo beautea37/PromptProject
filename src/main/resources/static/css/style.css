@@ -1,0 +1,59 @@
+body {
+    background-color: #fff; /* 흰색 배경 */
+}
+
+.navbar {
+    background-color: #f8f9fa;
+    margin-bottom: 20px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/*.card {*/
+/*    width: 18rem;*/
+/*    margin-top: 20px;*/
+/*}*/
+
+
+.card-body {
+    position: relative;
+    padding-bottom: 40px; /* Extra space for icons and button */
+}
+/*.card-body {*/
+/*    -ms-flex: 1 1 auto;*/
+/*    flex: 1 1 auto;*/
+/*    min-height: 1px;*/
+/*    padding: 1.25rem;*/
+/*}*/
+.icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
+.star, .heart {
+    color: #000;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.star.active, .star:hover {
+    color: #ffa500; /* Orange color */
+    transform: scale(2.2);
+}
+
+.heart.active, .heart:hover {
+    color: #f66; /* Light red color */
+    fill: #f66; /* Fill color for SVG icons */
+}
+
+.details-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 60px; /* Adjusted to the right of the icons */
+}
