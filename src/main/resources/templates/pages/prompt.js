@@ -8,6 +8,7 @@ if (createButton) {
         //     subTitle: document.getElementById('subTitle').value,
         //     content: document.getElementById('content').value
         alert("Click Test");
+        location.replace("/")
     });
 
 

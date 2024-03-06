@@ -21,45 +21,103 @@
 </head>
 
 <body>
-<!--<div class="col-9">-->
+<div class="col-9">
     <div class="container mt-5">
-<!--        <h2>Create New Prompt</h2>-->
-<!--        <form id="promptForm" th:method="post">-->
-<!--            <div class="form-group">-->
-<!--                <label for="title">Title</label>-->
-<!--                <input type="text" class="form-control" id="title" name="title" required>-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="subTitle">SubTitle</label>-->
-<!--                <input type="text" class="form-control" id="subTitle" th:text="${prom}">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="content">Content</label>-->
-<!--                <textarea class="form-control" id="content" name="content" rows="3" required></textarea>-->
-<!--            </div>-->
-<!--            <button type="submit" class="btn btn-primary" th:id="create-btn">Submit</button>-->
-<!--        </form>-->
-    <form th:action="@{/save}"  th:method="post">
-                <article>
-            <input type="hidden" id="article-id" th:value="${prompt.id}">
+        <h2>Create New Prompt</h2>
+<!--        security 임시 권한 부여-->
+        <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text" class="form-control" id="title" name="title" required th:value="${prompt.title}">
+        </div>
+        <div class="form-group">
+            <label for="subTitle">소개</label>
+            <input type="text" class="form-control" id="subTitle" th:text="${prompt.subTitle}">
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="3" required
+                      th:text="${prompt.content}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="create-btn">Submit</button>
 
-            <header class="mb-4">
-                <input type="text" class="form-control" placeholder="제목" id="title" th:value="${prompt.title}">
-            </header>
-            <input type="text" class="form-control" placeholder="소개" id="subTitle" th:value="${prompt.subTitle}">
 
-            <section class="mb-5">
-                <textarea class="form-control h-25" rows="10" placeholder="내용" id="content" th:text="${prompt.content}"></textarea>
-            </section>
-            <!--                ID가 있을 때는 수정, 없을 때는 등록버튼 보이게끔-->
+        <script>const createButton = document.getElementById('create-btn');
 
-            <button th:if="${prompt.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
-            <button th:if="${prompt.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>
-        </article>
+        // 글 등록
+        if (createButton) {
+            createButton.addEventListener('click', event => {
+                event.preventDefault();
 
-        <input type="submit" value="저장하기" class="btn btn-primary my-2">
-    </form>
+                const csrfToken = document.getElementById('csrf').value;
 
+                const body = JSON.stringify({
+                    title: document.getElementById('title').value,
+                    subTitle: document.getElementById('subTitle').value,
+                    content: document.getElementById('content').value
+                });
+
+
+                // httpRequest('POST', '/save', body, success, fail);
+                // 요청 헤더에 CSRF 토큰을 포함합니다.
+                httpRequest('POST', '/save', body, {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken  // 헤더에 CSRF 토큰을 추가
+                }, success, fail);
+            });
+        }
+
+
+        function success(response) {
+            alert("등록 완료");
+            location.replace('/');
+        }
+
+        function fail(error) {
+            console.error('등록 실패', error);
+            alert("등록 실패");
+        }
+
+        // 요청 헤더를 매개변수로 받도록 수정합니다.
+        function httpRequest(method, url, body, headers, successCallback, failCallback) {
+            fetch(url, {
+                method: method,
+                headers: headers,
+                body: body,
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json(); // or .text() if the response is not in JSON format
+                    } else {
+                        throw new Error('Something went wrong');
+                    }
+                })
+                .then(data => successCallback(data))
+                .catch(error => failCallback(error));
+        }
+        </script>
+
+        <!--    <form th:action="@{/save}"  th:method="post">-->
+        <!--                <article>-->
+        <!--            <input type="hidden" id="article-id" th:value="${prompt.id}">-->
+
+        <!--            <header class="mb-4">-->
+        <!--                <input type="text" class="form-control" placeholder="제목" id="title" th:value="${prompt.title}">-->
+        <!--            </header>-->
+        <!--            <input type="text" class="form-control" placeholder="소개" id="subTitle" th:value="${prompt.subTitle}">-->
+
+        <!--            <section class="mb-5">-->
+        <!--                <textarea class="form-control h-25" rows="10" placeholder="내용" id="content" th:text="${prompt.content}"></textarea>-->
+        <!--            </section>-->
+        <!--            &lt;!&ndash;                ID가 있을 때는 수정, 없을 때는 등록버튼 보이게끔&ndash;&gt;-->
+
+        <!--            <button th:if="${prompt.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>-->
+        <!--            <button th:if="${prompt.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>-->
+        <!--        </article>-->
+
+        <!--        <input type="submit" value="저장하기" class="btn btn-primary my-2">-->
+        <!--    </form>-->
     </div>
+</div>
 </body>
 </html>
