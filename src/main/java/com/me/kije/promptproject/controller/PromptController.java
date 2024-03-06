@@ -20,19 +20,33 @@ public class PromptController {
 
     private final PromptService promptService;
 
+//    @GetMapping("/")
+//    public String main(){
+//        return "pages/index";
+//    }
+
     @GetMapping("/")
-    public String main(){
+    public String mainPage(Model model){
+        List<PromptViewResponse> prompts = promptService.findAll()
+                .stream()
+                .map(PromptViewResponse::new)
+                .toList();
+
+        model.addAttribute("prompts", prompts);
         return "pages/index";
     }
+
 
     @GetMapping("/save")
     public String createPrompt(@RequestParam(required = false) Long id, Model model) {
 
+        Prompt prompt = new Prompt();
+
         if (id == null) {
-            model.addAttribute("prompt", new PromptViewResponse());
+            model.addAttribute("prompt", new PromptViewResponse(prompt));
         } else {
-            Prompt prompt = promptService.findById(id);
-//            model.addAttribute("prompt", new PromptViewResponse());
+//            Prompt prompt = promptService.findById(id);
+            model.addAttribute("prompt", new PromptViewResponse(prompt));
         }
         return "pages/prompt";
     }

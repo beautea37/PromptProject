@@ -24,7 +24,7 @@ public class PromptService {
     }
 
     //글 조회
-    public List<Prompt> getAllPrompts() {
+    public List<Prompt> findAll() {
         return promptRepository.findAll();
     }
 

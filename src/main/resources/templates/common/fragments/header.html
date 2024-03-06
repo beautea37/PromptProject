@@ -12,7 +12,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">LOG IN / LOG OUT</a>
+                    <a class="nav-link" th:href="${isLoggedIn} ? '/logout' : '/login'">
+                        <span th:text="${isLoggedIn} ? 'LOG OUT' : '회원가입 / 로그인'"></span>
+                    </a>
                 </li>
             </ul>
         </div>
