@@ -48,4 +48,9 @@ public class PromptService {
         Prompt prompt = getPromptById(id);
         promptRepository.delete(prompt);
     }
+
+    public Prompt findById(Long id) {
+        return promptRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("findById not found : " + id));
+    }
 }

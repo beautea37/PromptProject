@@ -13,7 +13,7 @@ public class TestController {
     @GetMapping("/test")
     public String selectImageList(Model model) {
         model.addAttribute("title", "");
-        return "pages/test";
+        return "index";
     }
 
 }
