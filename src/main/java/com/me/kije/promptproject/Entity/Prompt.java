@@ -38,7 +38,7 @@ public class Prompt {
     //좋아요 만들어야 함.
 //    Set<User> llike;
 
-    @Builder(toBuilder = true)
+    @Builder
     public Prompt(String title, String subTitle, String content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.title = title;
         this.subTitle = subTitle;

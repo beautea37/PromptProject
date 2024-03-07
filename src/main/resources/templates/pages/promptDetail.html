@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!-- Default Layout Import-->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/defaultLayout}"
+      layout:fragment="Content"
+>
+<head>
+    <style>
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 40px;
+            color: #333;
+        }
+
+        header.mb-4 h1, header.mb-4 h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .fw-bolder {
+            font-weight: bold;
+        }
+
+        .mb-1 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-4, .mb-5 {
+            margin-bottom: 2rem;
+        }
+
+        .fs-5 {
+            font-size: 1.25rem;
+        }
+
+        section.mb-5 p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .text-muted {
+            color: #6c757d;
+        }
+
+        .fst-italic {
+            font-style: italic;
+        }
+
+    </style>
+    <title>테스트 페이지 </title>
+
+    <!-- inline CSS 영역-->
+    <style th:inline="css" type="text/css"></style>
+
+    <!-- inline JS 영역-->
+    <!--    <script th:inline="javascript" type="text/javascript">-->
+    <!--        $(document).ready(() => {-->
+    <!--            alert("페이지가 시작됩니다.")-->
+    <!--        });-->
+    <!--    </script>-->
+</head>
+
+<body>
+
+
+<!--<div class="blog-article">-->
+<!--    <input type="hidden" id="article-id" th:value="${prompt.id}">-->
+<!--    <header class="mb-4">-->
+<!--        <h1 class="fw-bolder mb-1" th:text="${prompt.title}">블로그 제목</h1>-->
+<!--        <h4 class="fw-bolder mb-1" th:text="${prompt.subTitle}">부제목 여기</h4>-->
+<!--        &lt;!&ndash; 아래 댓글 처리된 줄은 예시로 남겨두었습니다. 실제 사용 시 서버에서 날짜와 작성자 정보를 포함시킬 수 있습니다. &ndash;&gt;-->
+<!--        &lt;!&ndash; <div class="text-muted fst-italic mb-2" th:text="|Posted on ${#temporals.format(prompt.createdAt, 'yyyy-MM-dd HH:mm')} By ${prompt.author}|"></div> &ndash;&gt;-->
+<!--    </header>-->
+
+<!--    <section class="mb-5">-->
+<!--        <p class="fs-5 mb-4" th:text="${prompt.content}">여기에 본문 내용이 들어갑니다...</p>-->
+<!--    </section>-->
+<!--</div>-->
+
+
+<!--<div class="container mt-5">-->
+<!--    <div class="card">-->
+<!--        <div class="card-header">-->
+<!--            <div class="row">-->
+<!--                <div class="col-8">-->
+<!--                    <h1 class="fw-bold mb-0" th:text="${prompt.title}">Default Title</h1>-->
+<!--                </div>-->
+<!--                <div class="col-4 text-end">-->
+<!--&lt;!&ndash;                    <span class="badge bg-secondary me-2" th:text="'추천 : ' + ${prompt.likes}">Likes: 0</span>&ndash;&gt;-->
+<!--                    <span class="badge bg-secondary me-2">Likes: 0</span>-->
+<!--&lt;!&ndash;                    <span class="badge bg-secondary" th:text="'댓글 : ' + ${prompt.comments}">Comments: 0</span>&ndash;&gt;-->
+<!--                    <span class="badge bg-secondary">Comments: 0</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--&lt;!&ndash;                    <small th:text="${user.nickname}">Nickname</small> |&ndash;&gt;-->
+<!--                    <small>Nickname</small> |-->
+<!--                    <small th:text="${prompt.modifiedDate}">Updated At</small>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--            <h2 class="card-subtitle mb-4" th:text="${prompt.subTitle}">Default Subtitle</h2>-->
+<!--            <div class="mb-4" th:utext="${prompt.content}">Default content...</div>-->
+<!--            <hr>-->
+<!--            <div class="mt-4">-->
+<!--                <form th:action="@{/comment}" method="post">-->
+<!--                    <div class="input-group">-->
+<!--                        <input type="text" class="form-control" name="comment" placeholder="댓글 작성" aria-label="Recipient's username">-->
+<!--                        <button class="btn btn-outline-secondary" type="submit">대댓</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-8">
+                    <h1 class="fw-bold" th:text="${prompt.title}">제목</h1>
+                    <p class="text-muted">
+                        <!--                        <span th:text="${user.nickname}">Nickname</span> |-->
+                        <small>Nickname</small>
+                        <small th:text="${prompt.modifiedDate}">Updated At</small>
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="text-muted">
+                        <!--                        <span class="badge bg-secondary" th:text="'Likes: ' + ${prompt.likes}">Likes: 0</span>-->
+                        <span class="badge bg-secondary">Likes: 0</span>
+                        <!--                        <span class="badge bg-secondary" th:text="'Comments: ' + ${prompt.comments}">Comments: 0</span>-->
+                        <span class="badge bg-secondary">Comments: 0</span>
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="fw-bold mb-4" th:text="${prompt.subTitle}">소개</h2>
+            <p class="mb-4" th:utext="${prompt.content}">콘텐츠</p>
+
+            <a th:href="@{/modify}" class="btn btn-primary btn-create">수정</a>
+<!--            <a th:href="@{'/delete/' + ${prompt.id}}" th:method="DELETE" class="btn btn-primary btn-create">삭제</a>-->
+            <a href="javascript:;" data-id="${prompt.id}" class="btn btn-primary btn-create delete-prompt">삭제</a>
+
+
+            <form th:action="@{/comment}" method="post" class="mt-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="comment" placeholder="댓글 작성"
+                           aria-label="Recipient's username with two button addons">
+                    <button class="btn btn-outline-secondary" type="submit">대댓</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Use event delegation if these links are dynamically added
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-prompt')) {
+            var promptId = e.target.getAttribute('data-id');
+            // Use fetch or another method to send a DELETE request to the server
+            // Example:
+            fetch('/delete/' + promptId, { method: 'DELETE' })
+                .then(response => {
+                    // handle response
+                });
+        }
+    });
+</script>
+
+</body>
+</html>

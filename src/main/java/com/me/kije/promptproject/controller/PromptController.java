@@ -5,7 +5,6 @@ import com.me.kije.promptproject.Service.PromptService;
 import com.me.kije.promptproject.dto.AddPromptRequest;
 import com.me.kije.promptproject.dto.PromptViewResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,11 +19,7 @@ public class PromptController {
 
     private final PromptService promptService;
 
-//    @GetMapping("/")
-//    public String main(){
-//        return "pages/index";
-//    }
-
+    //메인 페이지
     @GetMapping("/")
     public String mainPage(Model model){
         List<PromptViewResponse> prompts = promptService.findAll()
@@ -36,7 +31,7 @@ public class PromptController {
         return "pages/index";
     }
 
-
+    //글 작성
     @GetMapping("/save")
     public String createPrompt(@RequestParam(required = false) Long id, Model model) {
 
@@ -45,13 +40,12 @@ public class PromptController {
         if (id == null) {
             model.addAttribute("prompt", new PromptViewResponse(prompt));
         } else {
-//            Prompt prompt = promptService.findById(id);
             model.addAttribute("prompt", new PromptViewResponse(prompt));
         }
         return "pages/prompt";
     }
 
-    // 새 프롬프트 생성
+    // 글 저장
     @PostMapping("/save")
     public ResponseEntity<Prompt> addPrompt(@RequestBody AddPromptRequest request) {
 
@@ -62,10 +56,20 @@ public class PromptController {
     }
 
 
-    // ID로 프롬프트 조회
-    @GetMapping("/{id}")
-    public ResponseEntity<Prompt> getPromptById(@PathVariable Long id) {
-        return ResponseEntity.ok(promptService.getPromptById(id));
+    // 자세히 보기
+//    @GetMapping("/prompt/{id}")
+//    public ResponseEntity<Prompt> getPromptById(@PathVariable Long id) {
+////        return ResponseEntity.ok(promptService.getPromptById(id));
+//        return "pages/promptDetails";
+//    }
+
+//    @GetMapping("/*/prompt/{id}*/ /test")
+    @GetMapping("/test/{id}")
+    public String getPromptById(@PathVariable Long id, Model model) {
+        Prompt prompt = promptService.findById(id);
+        model.addAttribute("prompt", new PromptViewResponse(prompt));
+
+        return "pages/promptDetail";
     }
 
     // 프롬프트 업데이트
@@ -74,10 +78,9 @@ public class PromptController {
 ////        return ResponseEntity.ok(promptService.updatePrompt(id, promptDetails));
 //    }
 
-    // 프롬프트 삭제
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deletePrompt(@PathVariable Long id) {
-//        promptService.deletePrompt(id);
-//        return ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deletePrompt(@PathVariable Long id) {
+        promptService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
