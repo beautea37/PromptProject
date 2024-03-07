@@ -33,18 +33,12 @@
         </div>
     </div>
 
-
-
-
-        <div class="col-md-4 card-container">
-            <div th:each="prompt : ${prompts}">
+    <div th:each="prompt : ${prompts}" class="col-md-4 card-container">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${prompt.title}">Title</h5>
                     <h6 class="card-subtitle mb-2 text-muted" th:text="${prompt.subTitle}">기능 요약</h6>
                     <p class="card-text" th:text="${prompt.content}">Content Thymeleaf</p>
-
-
                     <span class="icon star">&#9733;</span>
                     <span class="icon heart">&#9825;</span>
                     <div class="card-buttons">
@@ -54,7 +48,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
 
 <!--    <div class="col-md-4 card-container">-->
@@ -82,23 +76,19 @@
 <!--    </div>-->
 
 
-</div>
+<!--<div th:each="prompt : ${prompts}">-->
+<!--    <div class="card-body">-->
+<!--        <h5 class="card-title" th:text="${prompt.title}">Title</h5>-->
+<!--        <h6 class="card-subtitle mb-2 text-muted" th:text="${prompt.subTitle}">기능 요약</h6>-->
+<!--        <p class="card-text" th:text="${prompt.content}">Content Thymeleaf</p>-->
 
+<!--        &lt;!&ndash; 별점과 하트 아이콘은 필요에 따라 표시하거나 로직을 추가하세요 &ndash;&gt;-->
 
-=============================================
-<div th:each="prompt : ${prompts}">
-    <div class="card-body">
-        <h5 class="card-title" th:text="${prompt.title}">Title</h5>
-        <h6 class="card-subtitle mb-2 text-muted" th:text="${prompt.subTitle}">기능 요약</h6>
-        <p class="card-text" th:text="${prompt.content}">Content Thymeleaf</p>
-
-        <!-- 별점과 하트 아이콘은 필요에 따라 표시하거나 로직을 추가하세요 -->
-
-        <div class="card-buttons">
-            <button class="btn btn-detail" th:onclick="'location.href=\'' + @{/detail(prompt.id)} + '\''">자세히 보기
-            </button>
-        </div>
-    </div>
-</div>
+<!--        <div class="card-buttons">-->
+<!--            <button class="btn btn-detail" th:onclick="'location.href=\'' + @{/detail(prompt.id)} + '\''">자세히 보기-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>
