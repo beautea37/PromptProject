@@ -4,6 +4,8 @@ import com.me.kije.promptproject.Entity.Prompt;
 import com.me.kije.promptproject.Service.PromptService;
 import com.me.kije.promptproject.dto.AddPromptRequest;
 import com.me.kije.promptproject.dto.PromptViewResponse;
+import com.me.kije.promptproject.dto.UpdatePromptRequest;
+import com.me.kije.promptproject.repository.PromptRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,8 +65,8 @@ public class PromptController {
 //        return "pages/promptDetails";
 //    }
 
-//    @GetMapping("/*/prompt/{id}*/ /test")
-    @GetMapping("/test/{id}")
+//    글 조회
+    @GetMapping("/prompt/{id}")
     public String getPromptById(@PathVariable Long id, Model model) {
         Prompt prompt = promptService.findById(id);
         model.addAttribute("prompt", new PromptViewResponse(prompt));
@@ -81,6 +83,26 @@ public class PromptController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePrompt(@PathVariable Long id) {
         promptService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/modify/{id}")
+    public  String newPrompt(@PathVariable Long id, Model model) {
+        Prompt prompt = promptService.findById(id);
+        if (id == null) {
+            model.addAttribute("prompt", new PromptViewResponse(prompt));
+        } else {
+            model.addAttribute("prompt", new PromptViewResponse(prompt));
+        }
+
+        return "pages/prompt";
+    }
+
+    @PutMapping("/modify/{id}")
+    public ResponseEntity<Void> modifyPrompt(@PathVariable Long id, @RequestBody UpdatePromptRequest request){
+
+        Prompt modifyPrompt = promptService.modify(id, request);
+
         return ResponseEntity.ok().build();
     }
 }

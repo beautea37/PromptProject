@@ -36,7 +36,7 @@ public class PromptService {
 
     //수정 업데이트
     @Transactional
-    public Prompt update(Long id, UpdatePromptRequest request) {
+    public Prompt modify(Long id, UpdatePromptRequest request) {
         Prompt prompt = promptRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id값이 없습니다. id 값은 : " + id));
 
@@ -45,8 +45,11 @@ public class PromptService {
     }
 
     public void delete(Long id) {
-        Prompt prompt = getPromptById(id);
+        Prompt prompt = promptRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Delete할 id 값이 없습니다. id값 : " + id));
+
         promptRepository.delete(prompt);
+
     }
 
     public Prompt findById(long id) {

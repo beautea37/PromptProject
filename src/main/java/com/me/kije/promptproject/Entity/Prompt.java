@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Entity
 @Getter
@@ -20,15 +22,17 @@ public class Prompt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Title cannot be empty")
     @Column(nullable = false, length = 100)
     private String title;
 
+    @NotBlank(message = "SubTitle cannot be empty")
     @Column(nullable = false, length = 400)
     private String subTitle;
 
-    @Column(columnDefinition = "TEXT")
+    @NotBlank(message = "Content cannot be empty")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
-
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 

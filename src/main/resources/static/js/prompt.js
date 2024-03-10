@@ -26,6 +26,42 @@ function fail(error) {
     alert("등록 실패");
 }
 
+
+
+
+//삭제
+const deleteButton = document.getElementById('delete-btn');
+
+if(deleteButton) {
+    deleteButton.addEventListener('click', event => {
+        let id = document.getElementById('prompt.id').value;
+
+        function success() {
+            alert('삭제가 완료되었습니다.');
+            location.replace('/');
+        }
+
+        function fail() {
+            alert('삭제 실패했습니다.');
+            location.replace('/');
+        }
+
+        httpRequest('DELETE', `/delete/${id}`, null, success, fail)
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 function httpRequest(method, url, body, successCallback, failCallback) {
     fetch(url, {
         method: method,

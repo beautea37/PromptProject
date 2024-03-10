@@ -3,7 +3,6 @@ package com.me.kije.promptproject.dto;
 import com.me.kije.promptproject.Entity.Prompt;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -25,5 +24,11 @@ public class PromptViewResponse {
         this.content = prompt.getContent();
         this.createdDate = prompt.getCreatedDate();
         this.modifiedDate = prompt.getModifiedDate();
+    }
+
+    public void PromptModifyResponse(Prompt prompt) {
+        this.title = prompt.getTitle();
+        this.subTitle = prompt.getSubTitle();
+        this.content = prompt.getContent();
     }
 }
