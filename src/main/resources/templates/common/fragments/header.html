@@ -13,7 +13,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <div th:unless="${isLoggedIn}" style="display: flex; justify-content: space-around;">
-                        <a class="nav-link" th:href="@{/signin}" style="margin-right: 10px;">회원가입</a>
+                        <a class="nav-link" th:href="@{/sign-up}" style="margin-right: 10px;">회원가입</a>
                         <a class="nav-link" th:href="@{/login}">로그인</a>
                     </div>
                     <div th:if="${isLoggedIn}">

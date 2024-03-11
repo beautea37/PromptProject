@@ -5,7 +5,6 @@ import com.me.kije.promptproject.Service.PromptService;
 import com.me.kije.promptproject.dto.AddPromptRequest;
 import com.me.kije.promptproject.dto.PromptViewResponse;
 import com.me.kije.promptproject.dto.UpdatePromptRequest;
-import com.me.kije.promptproject.repository.PromptRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +43,7 @@ public class PromptController {
         } else {
             model.addAttribute("prompt", new PromptViewResponse(prompt));
         }
-        return "pages/prompt";
+        return "pages/prompt/prompt";
     }
 
     // 글 저장
@@ -71,7 +70,7 @@ public class PromptController {
         Prompt prompt = promptService.findById(id);
         model.addAttribute("prompt", new PromptViewResponse(prompt));
 
-        return "pages/promptDetail";
+        return "pages/prompt/promptDetail";
     }
 
     // 프롬프트 업데이트
@@ -95,7 +94,7 @@ public class PromptController {
             model.addAttribute("prompt", new PromptViewResponse(prompt));
         }
 
-        return "pages/prompt";
+        return "pages/prompt/prompt";
     }
 
     @PutMapping("/modify/{id}")

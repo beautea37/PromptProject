@@ -6,10 +6,13 @@ import java.util.Set;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 
 @Entity
@@ -33,7 +36,11 @@ public class Prompt {
     @NotBlank(message = "Content cannot be empty")
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+
+    @CreatedDate
     private LocalDateTime createdDate;
+
+    @LastModifiedDate
     private LocalDateTime modifiedDate;
 
     @OneToMany(mappedBy = "prompt", cascade = CascadeType.REMOVE)
