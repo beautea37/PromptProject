@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+
+
 public class PromptProjectApplication {
 
     public static void main(String[] args) {

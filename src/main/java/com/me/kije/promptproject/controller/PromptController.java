@@ -34,15 +34,17 @@ public class PromptController {
 
     //글 작성
     @GetMapping("/save")
-    public String createPrompt(@RequestParam(required = false) Long id, Model model) {
+    public String createPrompt(/*RequestParam(required = false) Long id,*/ Model model) {
 
         Prompt prompt = new Prompt();
 
-        if (id == null) {
-            model.addAttribute("prompt", new PromptViewResponse(prompt));
-        } else {
-            model.addAttribute("prompt", new PromptViewResponse(prompt));
-        }
+//        if (id == null) {
+//            model.addAttribute("prompt", new PromptViewResponse(prompt));
+//        } else {
+//            model.addAttribute("prompt", new PromptViewResponse(prompt));
+//        }
+        model.addAttribute("prompt", new PromptViewResponse(prompt));
+
         return "pages/prompt/prompt";
     }
 
@@ -66,7 +68,7 @@ public class PromptController {
 
 //    글 조회
     @GetMapping("/prompt/{id}")
-    public String getPromptById(@PathVariable Long id, Model model) {
+    public String getPromptById(@PathVariable(name = "id") Long id, Model model) {
         Prompt prompt = promptService.findById(id);
         model.addAttribute("prompt", new PromptViewResponse(prompt));
 
@@ -80,13 +82,13 @@ public class PromptController {
 //    }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deletePrompt(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePrompt(@PathVariable(name = "id") Long id) {
         promptService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/modify/{id}")
-    public  String newPrompt(@PathVariable Long id, Model model) {
+    public  String newPrompt(@PathVariable("id") Long id, Model model) {
         Prompt prompt = promptService.findById(id);
         if (id == null) {
             model.addAttribute("prompt", new PromptViewResponse(prompt));
@@ -98,7 +100,7 @@ public class PromptController {
     }
 
     @PutMapping("/modify/{id}")
-    public ResponseEntity<Void> modifyPrompt(@PathVariable Long id, @RequestBody UpdatePromptRequest request){
+    public ResponseEntity<Void> modifyPrompt(@PathVariable(name = "id") Long id, @RequestBody UpdatePromptRequest request){
 
         Prompt modifyPrompt = promptService.modify(id, request);
 

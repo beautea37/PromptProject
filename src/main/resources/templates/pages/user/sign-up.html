@@ -19,26 +19,26 @@
 <div class="container">
     <h2>Sign Up</h2>
 
-    <form th:action="@{/sign-up}" th:object="${user}" method="post">
-        <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <div class="form-group">
-            <label for="userName">User Name:</label>
-            <input type="text" class="form-control" id="userName" th:field="*{userName}" required>
-        </div>
-        <div class="form-group">
-            <label for="nickName">Nick Name:</label>
-            <input type="text" class="form-control" id="nickName" th:field="*{nickName}" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" th:field="*{password}" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" th:field="*{email}" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-    </form>
+<!--    <form th:action="@{/sign-up}" th:object="${user}" method="post">-->
+<!--        <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+<!--        <div class="form-group">56-->
+<!--            <label for="userName">User Name:</label>-->
+<!--            <input type="text" class="form-control" id="userName" th:field="*{userName}" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="nickName">Nick Name:</label>-->
+<!--            <input type="text" class="form-control" id="nickName" th:field="*{nickName}" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="password">Password:</label>-->
+<!--            <input type="password" class="form-control" id="password" th:field="*{password}" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="email">Email:</label>-->
+<!--            <input type="email" class="form-control" id="email" th:field="*{email}" required>-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary">Sign Up</button>-->
+<!--    </form>-->
 </div>
 
 

@@ -18,7 +18,7 @@ public class UserResponse {
     private LocalDateTime signUpDate;
 
     public UserResponse(User user) {
-        this.userName = user.getUserName();
+//        this.userName = user.getUserName();
         this.nickName = user.getNickName();
         this.password = user.getPassword();
         this.email = user.getEmail();

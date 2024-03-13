@@ -14,37 +14,17 @@ public class UserService {
 
 
     private final UserRepository userRepository;
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-//    public User save(User user) {
-//
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//
-//        return userRepository.save(User.builder()
-//                .userName(user.getUserName())
-//                .nickName(user.getNickName())
-//                .email(user.getEmail())
-//                .password(encoder.encode(user.getPassword()))
-//                .build());
-//    }
-
-
-
-
-    public Long save(UserRequest user) {
-
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
+    public Long save(UserRequest dto) {
         return userRepository.save(User.builder()
-                .userName(user.getUserName())
-                .nickName(user.getNickName())
-                .email(user.getEmail())
-                .password(bCryptPasswordEncoder.encode(user.getPassword()))
-                .build());
+                .userName(dto.getUserName())
+                .nickName(dto.getNickName())
+                .password(/*bCryptPasswordEncoder.encode*/(dto.getPassword()))
+                .email(dto.getEmail())
+                .build()).getId();
+
+
     }
-
-//    public User find
-
 
 }
