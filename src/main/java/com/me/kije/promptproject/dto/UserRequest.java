@@ -19,11 +19,11 @@ import java.time.LocalDateTime;
 public class UserRequest {
     @NotNull
     @Size(min = 3, max = 50)
-    private String userName;
+    private String username;
 
     @NotNull
     @Size(min = 3, max = 50)
-    private String nickName;
+    private String nickname;
 
     @NotNull
     @Size(min = 6, max = 100)

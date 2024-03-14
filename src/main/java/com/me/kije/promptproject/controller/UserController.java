@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,10 +27,6 @@ public class UserController {
 
     private final UserService userService;
 
-//    @GetMapping("/sign-up")
-//    public String signup() {
-//        return "pages/user/test/sign-up";
-//    }
     @GetMapping("/sign-up")
     public String signup(Model model) {
         User user = new User();
@@ -39,11 +36,29 @@ public class UserController {
     }
 
 
-        @PostMapping("/sign-up")
+    @PostMapping("/sign-up")
     public String registerUser(UserRequest user) {
         userService.save(user);
         return "redirect:/"; // Assuming you have a login page to redirect to after signup
     }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+
+        User user = new User();
+
+        model.addAttribute("users", new UserResponse(user));
+
+        return "pages/user/test/login";
+    }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<User> login(@RequestBody UserRequest request) {
+//
+//
+//    }
+
+}
 
 //    회원가입 POST
 //    @PostMapping("/sign-up")
@@ -68,10 +83,7 @@ public class UserController {
 //        return "redirect:/";
 //    }
 //
-//    @GetMapping("/login")
-//    public String login() {
-//        return "pages/user/test/login";
-//    }
+
 //
 //
 //    @PostMapping("/login")
@@ -89,4 +101,4 @@ public class UserController {
 //
 //        return "redirect:/";
 //    }
-}
+

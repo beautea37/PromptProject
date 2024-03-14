@@ -22,10 +22,10 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String username;
 
     @Column(nullable = false, unique = true)
-    private String nickName;
+    private String nickname;
 
     @Column(nullable = false)
     private String password;
@@ -37,9 +37,9 @@ public class User implements UserDetails {
     private LocalDateTime signUpDate;
 
     @Builder
-    public User(String userName, String nickName, String password, String email, String auth/*, LocalDateTime signUpDate*/) {
-        this.userName = userName;
-        this.nickName = nickName;
+    public User(String username, String nickname, String password, String email, String auth/*, LocalDateTime signUpDate*/) {
+        this.username = username;
+        this.nickname = nickname;
         this.password = password;
         this.email = email;
 //        this.signUpDate = signUpDate;

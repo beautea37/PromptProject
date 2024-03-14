@@ -46,6 +46,8 @@ public class Prompt {
     @OneToMany(mappedBy = "prompt", cascade = CascadeType.REMOVE)
     private List<Comment> commentList;
 
+
+
     //좋아요 만들어야 함.
 //    Set<User> llike;
 

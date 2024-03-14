@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 @Getter
 public class UserResponse {
 
-    private String userName;
-    private String nickName;
+    private String username;
+    private String nickname;
     private String password;
     private String email;
     private LocalDateTime signUpDate;
 
     public UserResponse(User user) {
-//        this.userName = user.getUserName();
-        this.nickName = user.getNickName();
+        this.username = user.getUsername();
+        this.nickname = user.getNickname();
         this.password = user.getPassword();
         this.email = user.getEmail();
     }
