@@ -53,7 +53,7 @@ public class User implements UserDetails {
     //사용자 id값 반환(고유 값)
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
@@ -85,4 +85,7 @@ public class User implements UserDetails {
     }
 
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

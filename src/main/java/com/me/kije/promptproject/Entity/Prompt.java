@@ -17,7 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Getter
-//@Setter
+@Setter
 
 @NoArgsConstructor
 public class Prompt {
@@ -26,15 +26,15 @@ public class Prompt {
     private Long id;
 
     @NotBlank(message = "Title cannot be empty")
-    @Column(nullable = false, length = 100)
+//    @Column(nullable = false, length = 100)
     private String title;
 
     @NotBlank(message = "SubTitle cannot be empty")
-    @Column(nullable = false, length = 400)
+//    @Column(nullable = false, length = 400)
     private String subTitle;
 
     @NotBlank(message = "Content cannot be empty")
-    @Column(columnDefinition = "TEXT", nullable = false)
+//    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @CreatedDate
@@ -46,18 +46,20 @@ public class Prompt {
     @OneToMany(mappedBy = "prompt", cascade = CascadeType.REMOVE)
     private List<Comment> commentList;
 
-
+    @Column(name = "author", nullable = false)
+    private String author;
 
     //좋아요 만들어야 함.
 //    Set<User> llike;
 
     @Builder
-    public Prompt(String title, String subTitle, String content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public Prompt(String title, String subTitle, String content, LocalDateTime createdDate, LocalDateTime modifiedDate, String author) {
         this.title = title;
         this.subTitle = subTitle;
         this.content = content;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
+        this.author = author;
     }
 
     public void  update(String title, String subTitle, String content) {

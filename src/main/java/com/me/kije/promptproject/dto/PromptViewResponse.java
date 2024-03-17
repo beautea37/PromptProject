@@ -1,6 +1,7 @@
 package com.me.kije.promptproject.dto;
 
 import com.me.kije.promptproject.Entity.Prompt;
+import com.me.kije.promptproject.Entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ public class PromptViewResponse {
     private String title;
     private String subTitle;
     private String content;
+    private String author;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
@@ -22,6 +24,7 @@ public class PromptViewResponse {
         this.title = prompt.getTitle();
         this.subTitle = prompt.getSubTitle();
         this.content = prompt.getContent();
+        this.author = prompt.getAuthor();
         this.createdDate = prompt.getCreatedDate();
         this.modifiedDate = prompt.getModifiedDate();
     }

@@ -7,13 +7,13 @@ if (createButton) {
         event.preventDefault();
 
         const csrfToken = document.getElementById('csrf').value;
-
+        console.log("create Button ON");
         const body = JSON.stringify({
             title: document.getElementById('title').value,
             subTitle: document.getElementById('subTitle').value,
-            content: document.getElementById('content').value
+            content: document.getElementById('content').value,
         });
-
+        console.log("body SUCCESS")
         function success(response) {
             // alert("등록 완료");
             location.replace('/');
@@ -21,7 +21,7 @@ if (createButton) {
 
         function fail(error) {
             console.error('등록 실패', error);
-            alert("빈칸");
+            alert("등록 실패");
         }
 
 
@@ -84,7 +84,7 @@ if (modifyButton) {
         const body = JSON.stringify({
             title: document.getElementById('title').value,
             subTitle: document.getElementById('subTitle').value,
-            content: document.getElementById('content').value
+            content: document.getElementById('content').value,
         });
 
         function success(success) {
@@ -115,7 +115,7 @@ if (modifyButton) {
 
 // 요청 헤더를 매개변수로 받도록 수정합니다.
 function httpRequest(method, url, body, headers, successCallback, failCallback) {
-    fetch(url, {
+    fetch(url, {    //Error point
         method: method,
         headers: headers,
         body: body,

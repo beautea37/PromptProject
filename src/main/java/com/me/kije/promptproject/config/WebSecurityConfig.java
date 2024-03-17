@@ -87,8 +87,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -96,6 +98,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 @Log4j
 public class WebSecurityConfig {
 
@@ -112,21 +115,28 @@ public class WebSecurityConfig {
 //    }
 
         @Bean
+    public WebSecurityCustomizer configure() {
+        return (web) -> web.ignoring()
+//                .requestMatchers(toH2Console())
+                .requestMatchers("/static/js/**");
+    }
+
+        @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            System.out.println("SecurityFilterChain");
+            System.out.println("SecurityFilterChain ---- Start");
         return http
                 .authorizeRequests()
                 .requestMatchers("/login", "/sign-up", "/").permitAll()
+                .requestMatchers("/static/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin(formLogin -> formLogin
 
                         .loginPage("/login")
-
                         .defaultSuccessUrl("/")
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
                 )
                 .csrf(AbstractHttpConfigurer::disable)

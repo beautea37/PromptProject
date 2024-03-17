@@ -46,18 +46,18 @@ public class UserController {
     public String login(Model model) {
 
         User user = new User();
-
         model.addAttribute("users", new UserResponse(user));
-
         return "pages/user/test/login";
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<User> login(@RequestBody UserRequest request) {
-//
-//
-//    }
 
+    //로그아웃
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+
+        return "redirect:/";
+    }
 }
 
 //    회원가입 POST

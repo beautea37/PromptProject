@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.zip.DataFormatException;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -23,6 +26,17 @@ public class UserService {
                 .email(dto.getEmail())
                 .build()).getId();
 
+
+    }
+
+    public User getUser(String username) throws DataFormatException {
+        Optional<User> user = this.userRepository.findByUsername(username);
+
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new DataFormatException("Author is not????");
+        }
 
     }
 
