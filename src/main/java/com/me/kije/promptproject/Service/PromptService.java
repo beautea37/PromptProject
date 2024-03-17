@@ -37,39 +37,6 @@ public class PromptService {
 //    }
 
     public Prompt save(AddPromptRequest request, String username) {
-//        Optional<User> user = userRepository.findByUsername(username);
-//        Prompt prompt = request.toPrompt();
-//        prompt.setAuthor(user);
-//
-//        return promptRepository.save(prompt);
-//살릴 부분
-        System.out.println("save controller--------------------");
-////////////////////////////////////////////////////////////////////////////////////////
-////        if (authentication != null) {
-////            System.out.println("true");
-////            String auth = authentication.getName();
-////            // Use the username to perform some service logic
-////            User user = userRepository.findByUsername(username)
-////                    .orElseThrow(() -> new UsernameNotFoundException("Author user not found"));
-////        } else {
-////            System.out.println("false");
-////        }
-//
-//        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Author user not found"));
-//        System.out.println("req.getTitle : " + request.getTitle());
-//        System.out.println("req.getSubTitle : " + request.getSubTitle());
-//        System.out.println("req.getContent : " + request.getContent());
-//        System.out.println("req.getAuthor : " + request.getAuthor());
-//        System.out.println("username : " + username);
-////        request.getAuthor().setUsername(username);
-//        System.out.println("req.getAuthor V2 : " + request.getAuthor());
-//
-//
-//        Prompt prompt = request.toPrompt();
-//        prompt.setAuthor(user);
-//
-//        //////////////////////////////////////////////////////////////////////////////////////
-
 
         return promptRepository.save(request.toPrompt(username));
 

@@ -2,13 +2,16 @@ package com.me.kije.promptproject.controller;
 
 import com.me.kije.promptproject.Entity.Prompt;
 import com.me.kije.promptproject.Entity.User;
+import com.me.kije.promptproject.Service.CommentService;
 import com.me.kije.promptproject.Service.PromptService;
 import com.me.kije.promptproject.Service.UserDetailService;
 import com.me.kije.promptproject.Service.UserService;
 import com.me.kije.promptproject.dto.AddPromptRequest;
+import com.me.kije.promptproject.dto.CommentResponse;
 import com.me.kije.promptproject.dto.PromptViewResponse;
 import com.me.kije.promptproject.dto.UpdatePromptRequest;
 import com.me.kije.promptproject.repository.UserRepository;
+import groovyjarjarantlr4.v4.codegen.model.AddToLabelList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
 
 @Controller
@@ -29,6 +33,7 @@ public class PromptController {
     private final PromptService promptService;
     private final UserService userService;
     private final UserDetailService userDetailService;
+    private final CommentService commentService;
 
     //메인 페이지
 //    @PreAuthorize("isAuthenticated()")
@@ -39,7 +44,9 @@ public class PromptController {
                 .map(PromptViewResponse::new)
                 .toList();
 
+
         model.addAttribute("prompts", prompts);
+
         return "pages/index";
     }
 
@@ -97,11 +104,17 @@ public class PromptController {
 //    }
 
     //    글 조회
-    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("isAuthenticated()")
     @GetMapping("/prompt/{id}")
     public String getPromptById(@PathVariable(name = "id") Long id, Model model) {
         Prompt prompt = promptService.findById(id);
+        List<CommentResponse> comments = commentService.getComment(id)
+                .stream()
+                .map(CommentResponse::new)
+                .toList();
+
         model.addAttribute("prompt", new PromptViewResponse(prompt));
+        model.addAttribute("comments", comments);
 
         return "pages/prompt/promptDetail";
     }

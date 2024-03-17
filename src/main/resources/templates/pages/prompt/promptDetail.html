@@ -164,11 +164,59 @@
 
             <form th:action="@{/comment}" method="post" class="mt-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="comment" placeholder="댓글 작성"
+                    <input type="hidden" name="promptId" th:value="${prompt.id}">
+                    <input type="text" class="form-control" name="comment" id="comment"
                            aria-label="Recipient's username with two button addons">
-                    <button class="btn btn-outline-secondary" type="submit">대댓</button>
+                    <button class="btn btn-outline-secondary" type="submit">등록</button>
                 </div>
             </form>
+
+<!--            <div th:each="comment : ${comments}">-->
+<!--                <div>-->
+<!--                    <strong th:text="${comment.username}">Username</strong>-->
+<!--                    <p th:text="${comment.content}">Comment content</p>-->
+<!--                    <small th:text="${comment.createdAt}">Date</small>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="container mt-4">
+                <h2>Comments</h2>
+                <div class="list-group">
+                    <!-- Comments list start -->
+                    <th:block th:each="comment : ${comments}">
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-2 text-truncate" th:text="${comment.username}">nickname</div>
+                                <div class="col-md-6 text-truncate" th:text="${comment.content}">content</div>
+                                <div class="col-md-2 text-truncate" th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">createdAt</div>
+                                <div class="col-md-2 text-right">
+                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <!-- Comments list end -->
+                    <th:block th:if="${comments.empty}">
+                        <p class="list-group-item">No comments yet.</p>
+                    </th:block>
+                </div>
+
+                <!-- Comment form -->
+                <div class="mt-4">
+                    <h4>Leave a comment</h4>
+                    <form th:action="@{/comment}" method="post">
+<!--                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+                        <div class="mb-3">
+                            <textarea class="form-control" name="comment" id="comment" rows="3" placeholder="Write your comment here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Comment</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Link to Bootstrap CSS -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
         </div>
     </div>
 </div>
