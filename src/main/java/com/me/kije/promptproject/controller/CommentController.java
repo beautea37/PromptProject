@@ -72,4 +72,35 @@ public class CommentController {
 //        return "pages/prompt/promptDetail"; // name of the Thymeleaf template
 //    }
 
+    @DeleteMapping("/delete/comment/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        System.out.println("DeleteMapping");
+        commentService.deleteComment(id);
+        return ResponseEntity.ok().build();
+    }
+
+//    @DeleteMapping("/delete/comment/{id}")
+//    public ResponseEntity<Void> delete(@ModelAttribute CommentRequest commentRequest, Principal principal, RedirectAttributes redirectAttributes) {
+//        System.out.println("DeleteMapping");
+//
+//        String username = principal.getName();
+//        try {
+//            Comment comment = commentService.deleteComment(commentRequest.getPromptId());
+//
+//        }
+//        return ResponseEntity.ok().build();
+//    }
+
+    @PostMapping("/delete/comment/{id}")
+    public String deleteComment(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        System.out.println("PostMapping");
+        try {
+            commentService.deleteComment(id);
+            redirectAttributes.addFlashAttribute("success", "Comment deleted successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error deleting comment.");
+        }
+        return "redirect:/prompt/" + id; // Change promptId to the correct identifier where the comment was
+    }
+
 }

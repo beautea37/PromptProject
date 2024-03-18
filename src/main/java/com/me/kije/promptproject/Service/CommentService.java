@@ -5,6 +5,7 @@ import com.me.kije.promptproject.Entity.Prompt;
 import com.me.kije.promptproject.repository.CommentRepository;
 import com.me.kije.promptproject.repository.PromptRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,20 @@ public class CommentService {
         return commentRepository.findByPromptId(promptId);
     }
 
+    public void deleteComment(Long commentId) {
+        List<Comment> comment = commentRepository.findByPromptId(commentId);
+
+        commentRepository.deleteById(commentId);
+    }
+
+
+
+    private static void authorizePromptAuthor(Prompt prompt) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!prompt.getAuthor().equals(username)) {
+            throw new IllegalArgumentException("작성자가 아닙니다.");
+        }
+    }
 
     // Additional methods for comment manipulation (e.g., delete, update) can be added here.
 }
