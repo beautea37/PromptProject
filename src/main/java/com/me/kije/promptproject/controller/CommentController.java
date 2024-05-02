@@ -5,6 +5,7 @@ import com.me.kije.promptproject.Service.CommentService;
 import com.me.kije.promptproject.Service.UserService;
 import com.me.kije.promptproject.dto.CommentRequest;
 import com.me.kije.promptproject.dto.CommentResponse;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,11 +73,36 @@ public class CommentController {
 //        return "pages/prompt/promptDetail"; // name of the Thymeleaf template
 //    }
 
+//    @DeleteMapping("/delete/comment/{id}")
+//    public ResponseEntity<Void> delete(@PathVariable Long id) {
+//        System.out.println("DeleteMapping");
+//        commentService.deleteComment(id);
+//        return ResponseEntity.ok().build();
+//    }
+
+
+///Real----------------------------------------------------------------
+//    @DeleteMapping("/delete/comment/{id}")
+////    public ResponseEntity<Void> delete(@PathVariable Long id/*, Principal principal*/) {
+//    public ResponseEntity<Void> delete(@ModelAttribute CommentRequest commentRequest,@PathVariable Long id/*, Principal principal*/) {
+//        System.out.println("DeleteMapping");
+//
+////        String username = principal.getName();
+//
+////        commentService.deleteComment(/*commentRequest.getPromptId()*/id);
+//        commentService.deleteComment(id);
+//        return ResponseEntity.ok().build();
+//    }
+    //----------------------------------------------------------------
     @DeleteMapping("/delete/comment/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id/*, Principal principal*/) {
         System.out.println("DeleteMapping");
-        commentService.deleteComment(id);
-        return ResponseEntity.ok().build();
+
+        // Assuming your deleteComment method now also returns the ID of the prompt associated with the deleted comment
+        Long promptId = commentService.deleteComment(id);
+
+        // Redirect to the prompt page
+        return "redirect:/prompt/" + promptId;
     }
 
 //    @DeleteMapping("/delete/comment/{id}")

@@ -40,7 +40,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 
-    implementation 'com.github.tlawltjr:util:1.5.1'
+    implementation 'com.github.tlawltjr:util:1.6.1'
 }
 
 tasks.named('test') {

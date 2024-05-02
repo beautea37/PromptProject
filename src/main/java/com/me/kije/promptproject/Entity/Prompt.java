@@ -49,8 +49,7 @@ public class Prompt {
     @Column(name = "author", nullable = false)
     private String author;
 
-    //좋아요 만들어야 함.
-//    Set<User> llike;
+
 
     @Builder
     public Prompt(String title, String subTitle, String content, LocalDateTime createdDate, LocalDateTime modifiedDate, String author) {

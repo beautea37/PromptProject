@@ -86,15 +86,15 @@ if (modifyButton) {
             subTitle: document.getElementById('subTitle').value,
             content: document.getElementById('content').value,
         });
-
         function success(success) {
-            alert('삭제 성공했습니다.' + success);
+
+            // alert('성공!!!! -----' + success);
             // console.log('success ' + success);
             location.replace('/');
         }
 
         function fail(error) {
-            alert('삭제가 실패되었습니다.' + error);
+            // alert('실패!!!!! ------ ' + error);
             // console.log('error ' + error)
             location.replace('/');
         }

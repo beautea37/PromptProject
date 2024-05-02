@@ -6,10 +6,7 @@ import com.me.kije.promptproject.Service.CommentService;
 import com.me.kije.promptproject.Service.PromptService;
 import com.me.kije.promptproject.Service.UserDetailService;
 import com.me.kije.promptproject.Service.UserService;
-import com.me.kije.promptproject.dto.AddPromptRequest;
-import com.me.kije.promptproject.dto.CommentResponse;
-import com.me.kije.promptproject.dto.PromptViewResponse;
-import com.me.kije.promptproject.dto.UpdatePromptRequest;
+import com.me.kije.promptproject.dto.*;
 import com.me.kije.promptproject.repository.UserRepository;
 import groovyjarjarantlr4.v4.codegen.model.AddToLabelList;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +29,6 @@ public class PromptController {
 
     private final PromptService promptService;
     private final UserService userService;
-    private final UserDetailService userDetailService;
     private final CommentService commentService;
 
     //메인 페이지
@@ -96,34 +92,26 @@ public class PromptController {
     }
 
 
-    // 자세히 보기
-//    @GetMapping("/prompt/{id}")
-//    public ResponseEntity<Prompt> getPromptById(@PathVariable Long id) {
-////        return ResponseEntity.ok(promptService.getPromptById(id));
-//        return "pages/promptDetails";
-//    }
-
-    //    글 조회
+    //    글 조회`
 //    @PreAuthorize("isAuthenticated()")
     @GetMapping("/prompt/{id}")
-    public String getPromptById(@PathVariable(name = "id") Long id, Model model) {
+    public String getPromptById(@PathVariable(name = "id") Long id, Model model) throws DataFormatException {
         Prompt prompt = promptService.findById(id);
+
+        User user = userService.getUser(prompt.getAuthor());
+
         List<CommentResponse> comments = commentService.getComment(id)
                 .stream()
                 .map(CommentResponse::new)
                 .toList();
 
+
         model.addAttribute("prompt", new PromptViewResponse(prompt));
+        model.addAttribute("user", new UserResponse(user));
         model.addAttribute("comments", comments);
 
         return "pages/prompt/promptDetail";
     }
-
-    // 프롬프트 업데이트
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Prompt> updatePrompt(@PathVariable Long id, @RequestBody Prompt promptDetails) {
-////        return ResponseEntity.ok(promptService.updatePrompt(id, promptDetails));
-//    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePrompt(@PathVariable(name = "id") Long id) {
@@ -149,5 +137,11 @@ public class PromptController {
         Prompt modifyPrompt = promptService.modify(id, request);
 
         return ResponseEntity.ok().build();
+    }
+
+
+    public String main(Prompt prompt) {
+
+        return "spring.datasource.driver-class-name";
     }
 }
